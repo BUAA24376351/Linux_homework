@@ -1,0 +1,13 @@
+# Linux Second Homework
+
+本次作业使用 `sha256sum` 对文件 `2.txt` 生成 SHA256 哈希值，用于验证文件完整性与正确性。
+
+#文件说明
+
+- `2.txt`：原始文件
+- `2.txt.sha256`：对应的 SHA256 哈希值文件
+
+#哈希生成命令
+
+```bash
+sha256sum 2.txt > 2.txt.sha256
