@@ -1,0 +1,9 @@
+services:
+  mcp:
+    build: .
+    container_name: my-mcp-server
+
+    ports:
+      - "8000:8000"
+
+    restart: unless-stopped
