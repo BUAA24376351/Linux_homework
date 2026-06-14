@@ -1,0 +1,483 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* ===== 首页 ===== */
+#homePage {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+#homePage::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,165,0,0.03) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.home-container {
+    text-align: center;
+    z-index: 1;
+}
+
+.title-area {
+    margin-bottom: 50px;
+}
+
+.game-title {
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    background: linear-gradient(180deg, #ff6b35, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 0 30px rgba(255,107,53,0.3));
+}
+
+.game-subtitle {
+    font-size: 28px;
+    letter-spacing: 20px;
+    color: #4a9eff;
+    margin-top: -10px;
+    font-weight: 300;
+}
+
+/* ===== 菜单按钮 ===== */
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.menu-btn {
+    width: 260px;
+    padding: 14px 32px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+    background: rgba(255,255,255,0.05);
+    color: #ccc;
+    backdrop-filter: blur(10px);
+}
+
+.menu-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #ff6b35, #ff4500);
+    color: #fff;
+    border-color: #ff6b35;
+}
+
+.start-btn:hover {
+    background: linear-gradient(135deg, #ff8c5a, #ff6347);
+    box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+}
+
+.rank-btn {
+    background: rgba(74,158,255,0.15);
+    color: #4a9eff;
+    border-color: #4a9eff;
+}
+
+.rank-btn:hover {
+    background: rgba(74,158,255,0.25);
+    box-shadow: 0 8px 25px rgba(74,158,255,0.3);
+}
+
+.about-btn {
+    background: rgba(0,255,127,0.1);
+    color: #00ff7f;
+    border-color: #00ff7f;
+}
+
+.about-btn:hover {
+    background: rgba(0,255,127,0.2);
+    box-shadow: 0 8px 25px rgba(0,255,127,0.3);
+}
+
+.mcp-btn {
+    background: rgba(255,215,0,0.1);
+    color: #ffd700;
+    border-color: #ffd700;
+}
+
+.mcp-btn:hover {
+    background: rgba(255,215,0,0.2);
+    box-shadow: 0 8px 25px rgba(255,215,0,0.3);
+}
+
+.small-btn {
+    width: auto;
+    padding: 8px 20px;
+    font-size: 14px;
+}
+
+/* ===== 游戏页 ===== */
+#gamePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 960px;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.game-info {
+    display: flex;
+    gap: 30px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.game-info span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+#gameCanvas {
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    background: #1a1a1a;
+    display: block;
+}
+
+/* ===== 覆盖层 ===== */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.overlay-content {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 40px 50px;
+    text-align: center;
+    min-width: 350px;
+}
+
+.overlay-content h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    background: linear-gradient(180deg, #ff6b35, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.overlay-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+.overlay-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+/* ===== 弹窗 ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 40px;
+    min-width: 420px;
+    max-width: 600px;
+    position: relative;
+    text-align: center;
+}
+
+.modal-content h2 {
+    font-size: 32px;
+    margin-bottom: 24px;
+    background: linear-gradient(180deg, #ff6b35, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    font-size: 32px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+/* ===== 排行榜表格 ===== */
+#rankingBody table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#rankingBody th {
+    padding: 10px;
+    color: #4a9eff;
+    border-bottom: 2px solid rgba(74,158,255,0.3);
+    font-size: 16px;
+}
+
+#rankingBody td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 16px;
+    color: #ddd;
+}
+
+#rankingBody tr:hover td {
+    background: rgba(255,255,255,0.03);
+}
+
+/* ===== 关于 ===== */
+.about-body {
+    text-align: left;
+    line-height: 2;
+    color: #ccc;
+}
+
+.about-body hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 12px 0;
+}
+
+.about-body p {
+    margin: 4px 0;
+}
+
+/* ===== MCP ===== */
+.mcp-status {
+    color: #888;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.mcp-advice {
+    background: rgba(255,215,0,0.05);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px 0;
+    min-height: 60px;
+    color: #ffd700;
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: left;
+}
+
+/* ===== 输入名字 ===== */
+#playerNameInput {
+    width: 80%;
+    padding: 12px 16px;
+    font-size: 18px;
+    border: 2px solid rgba(74,158,255,0.3);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    margin: 16px 0 24px;
+    outline: none;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+#playerNameInput:focus {
+    border-color: #4a9eff;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 1000px) {
+    #gameCanvas {
+        width: 720px;
+        height: 480px;
+    }
+    .game-header {
+        width: 720px;
+    }
+    .game-title {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 760px) {
+    #gameCanvas {
+        width: 480px;
+        height: 320px;
+    }
+    .game-header {
+        width: 480px;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .game-info {
+        font-size: 14px;
+        gap: 16px;
+    }
+    .game-title {
+        font-size: 36px;
+    }
+    .game-subtitle {
+        font-size: 20px;
+        letter-spacing: 12px;
+    }
+    .menu-btn {
+        width: 200px;
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+    .modal-content {
+        min-width: 300px;
+        padding: 24px;
+    }
+}
+
+/* ===== 关卡选择 ===== */
+.level-modal-content {
+    width: 700px;
+    max-width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.level-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 6px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: rgba(255,255,255,0.05);
+}
+
+.level-unlocked {
+    color: #ccc;
+    border-color: rgba(255,255,255,0.1);
+}
+
+.level-unlocked:hover {
+    transform: translateY(-3px);
+    border-color: #4a9eff;
+    box-shadow: 0 6px 20px rgba(74,158,255,0.3);
+    background: rgba(74,158,255,0.1);
+}
+
+.level-current {
+    border-color: #ffd700;
+    background: rgba(255,215,0,0.1);
+    box-shadow: 0 0 15px rgba(255,215,0,0.2);
+}
+
+.level-locked {
+    color: #555;
+    border-color: rgba(255,255,255,0.03);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.level-num {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.level-name {
+    font-size: 11px;
+    color: inherit;
+    opacity: 0.8;
+}
+
+.level-current .level-num {
+    color: #ffd700;
+}
+
+@media (max-width: 600px) {
+    .level-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .level-modal-content {
+        width: 95%;
+    }
+}

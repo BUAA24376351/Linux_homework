@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tank Battle Online</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 首页 -->
+    <div id="homePage">
+        <div class="home-container">
+            <div class="title-area">
+                <h1 class="game-title">TANK BATTLE</h1>
+                <p class="game-subtitle">ONLINE</p>
+            </div>
+            <div class="menu-buttons">
+                <button class="menu-btn" onclick="showLevelSelect()">📋 选择关卡</button>
+                <button class="menu-btn" onclick="startEndless()" style="background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;border-color:#e74c3c;">♾️ 无尽模式</button>
+                <button class="menu-btn rank-btn" onclick="showRanking()">🏆 排行榜</button>
+                <button class="menu-btn about-btn" onclick="showAbout()">📖 关于项目</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏画布页面 -->
+    <div id="gamePage" style="display:none;">
+        <div class="game-header">
+            <div class="game-info">
+                <span>❤️ <span id="hpDisplay">3</span></span>
+                <span>💀 <span id="killDisplay">0</span></span>
+                <span>⭐ <span id="scoreDisplay">0</span></span>
+            </div>
+            <button class="menu-btn small-btn" onclick="backToHome()">🏠 返回</button>
+        </div>
+        <canvas id="gameCanvas" width="960" height="640"></canvas>
+    </div>
+
+    <!-- 游戏结束/暂停 覆盖层 -->
+    <div id="overlay" class="overlay" style="display:none;">
+        <div class="overlay-content">
+            <h2 id="overlayTitle">Game Over</h2>
+            <p id="overlayMessage"></p>
+            <div class="overlay-buttons">
+                <button id="nextLevelBtn" class="menu-btn start-btn" onclick="nextLevel()" style="display:none;">▶ 下一关</button>
+                <button class="menu-btn start-btn" onclick="restartGame()">🔄 重玩本关</button>
+                <button class="menu-btn rank-btn" onclick="backToHome()">🏠 返回首页</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 排行榜弹窗 -->
+    <div id="rankingModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeRanking()">&times;</span>
+            <h2>🏆 排行榜</h2>
+            <div id="rankingBody">
+                <table>
+                    <thead>
+                        <tr><th>排名</th><th>玩家</th><th>得分</th><th>击杀</th></tr>
+                    </thead>
+                    <tbody id="rankingList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 关于项目弹窗 -->
+    <div id="aboutModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAbout()">&times;</span>
+            <h2>📖 关于项目</h2>
+            <div class="about-body">
+                <p><strong>Tank Battle Online</strong></p>
+                <p>基于 Docker、SQLite 的 Web 坦克大战游戏 — 30 关挑战 + 无尽模式</p>
+                <hr>
+                <p><strong>操作说明：</strong></p>
+                <p>W/A/S/D — 移动坦克</p>
+                <p>J — 发射子弹</p>
+                <p>P / ESC — 暂停</p>
+                <p>[ / ] — 减速 / 加速</p>
+                <p>消灭所有敌军即可过关！</p>
+                <hr>
+                <p><strong>技术栈：</strong></p>
+                <p>前端: HTML5 + CSS3 + JavaScript + Canvas</p>
+                <p>后端: Python Flask + SQLite</p>
+                <p>部署: Docker + Docker Compose</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 关卡选择弹窗 -->
+    <div id="levelModal" class="modal" style="display:none;">
+        <div class="modal-content level-modal-content">
+            <span class="close-btn" onclick="closeLevelSelect()">&times;</span>
+            <h2>📋 选择关卡</h2>
+            <div id="levelGrid" class="level-grid"></div>
+        </div>
+    </div>
+
+    <!-- 输入名字弹窗 -->
+    <div id="nameModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h2>🏆 新纪录！</h2>
+            <p id="nameModalScore"></p>
+            <input type="text" id="playerNameInput" placeholder="输入你的名字" maxlength="12">
+            <div class="overlay-buttons">
+                <button class="menu-btn start-btn" onclick="submitScore()">✅ 提交</button>
+                <button class="menu-btn rank-btn" onclick="skipScore()">⏭ 跳过</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/map.js"></script>
+    <script src="js/bullet.js"></script>
+    <script src="js/tank.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

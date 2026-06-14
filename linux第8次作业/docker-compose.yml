@@ -1,0 +1,7 @@
+services:
+  tank-game:
+    build: .
+    container_name: tank-battle-online
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
